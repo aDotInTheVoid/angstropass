@@ -7,3 +7,6 @@ edition = "2021"
 
 [dependencies]
 nanopass-macro = { version = "0.1.0", path = "nanopass-macro" }
+
+[dev-dependencies]
+trybuild = "1.0.80"

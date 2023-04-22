@@ -1,0 +1,5 @@
+error: expected `mod`
+ --> tests/ui/not_on_module.rs:2:5
+  |
+2 | pub fn lol() {}
+  |     ^^
