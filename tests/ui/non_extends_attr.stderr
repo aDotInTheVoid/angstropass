@@ -1,0 +1,5 @@
+error: expected #[extends]
+ --> tests/ui/non_extends_attr.rs:3:7
+  |
+3 |     #[something_else(with_attrs)]
+  |       ^^^^^^^^^^^^^^

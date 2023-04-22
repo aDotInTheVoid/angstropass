@@ -1,0 +1,5 @@
+error: expected attribute arguments in parentheses: `extends(...)`
+ --> tests/ui/no_parens_on_extends.rs:3:7
+  |
+3 |     #[extends]
+  |       ^^^^^^^

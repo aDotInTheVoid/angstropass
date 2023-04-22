@@ -1,0 +1,5 @@
+error: unexpected token
+ --> tests/ui/extends_several.rs:3:19
+  |
+3 |     #[extends(foo bar)]
+  |                   ^^^

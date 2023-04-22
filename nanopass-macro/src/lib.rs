@@ -22,7 +22,7 @@ fn langs_impl(args: TokenStream, module: syn::ItemMod) -> Result<TokenStream, sy
 
     let content = module_content(&module)?;
 
-    let mut comp = Compiler::default();
+    let mut comp = Langs::default();
 
     for item in content {
         if let syn::Item::Mod(module) = item {
@@ -37,25 +37,66 @@ fn langs_impl(args: TokenStream, module: syn::ItemMod) -> Result<TokenStream, sy
 }
 
 #[derive(Default)]
-struct Compiler {
-    langs: Vec<String>,
+struct Langs {
+    langs: Vec<Lang>,
 }
 
-impl Compiler {
+struct Lang {
+    name: String,
+    extends: Option<String>,
+}
+
+impl Langs {
     fn add_lang(&mut self, module: &syn::ItemMod) -> Result<(), syn::Error> {
         let name = module.ident.to_string();
-        if self.langs.contains(&name) {
+        if self.has_lang(&name) {
             return Err(syn::Error::new_spanned(
                 &module.ident,
                 format!("duplicate language: {}", name),
             ));
         }
 
+        let extends = self.extract_extends(module)?;
+
         module_content(module)?;
 
-        self.langs.push(name);
+        self.langs.push(Lang { name, extends });
 
         Ok(())
+    }
+
+    fn extract_extends(&mut self, module: &syn::ItemMod) -> Result<Option<String>, syn::Error> {
+        let extends = match &module.attrs[..] {
+            [] => None,
+            [attr] => {
+                let attr = attr.meta.require_list()?;
+                if attr.path.is_ident("extends") {
+                    let name: syn::Ident = attr.parse_args()?;
+                    let ns = name.to_string();
+                    if !self.has_lang(&ns) {
+                        return Err(syn::Error::new_spanned(
+                            &name,
+                            format!("unknown language: {}", ns),
+                        ));
+                    } else {
+                        Some(ns)
+                    }
+                } else {
+                    let err = syn::Error::new_spanned(&attr.path, "expected #[extends]");
+                    return Err(err);
+                }
+            }
+            [_, attr2, ..] => {
+                let err =
+                    syn::Error::new_spanned(&attr2, "only one #[extends] attribute is allowed");
+                return Err(err);
+            }
+        };
+        Ok(extends)
+    }
+
+    fn has_lang(&mut self, name: &str) -> bool {
+        self.langs.iter().any(|l| l.name == *name)
     }
 }
 
