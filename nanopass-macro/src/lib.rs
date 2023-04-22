@@ -14,10 +14,15 @@ pub fn langs(
 fn langs_impl(args: TokenStream, module: syn::ItemMod) -> TokenStream {
     if !args.is_empty() {
         let err = syn::Error::new_spanned(args, "this attribute does not take any arguments");
-        return err.into_compile_error().into();
+        return err.into_compile_error();
     }
 
-    let name = module.ident;
+    let name = &module.ident;
+
+    let Some((_, content)) = module.content else {
+        let err = syn::Error::new_spanned(&module, format!("#[langs] must be applied to inline module"));
+        return err.into_compile_error();
+    };
 
     quote! {
         mod #name {
