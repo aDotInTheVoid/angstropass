@@ -1,0 +1,5 @@
+error: only modules are allowed in #[langs]
+ --> tests/ui/non_mod_in_mod.rs:3:5
+  |
+3 |     struct Bar;
+  |     ^^^^^^^^^^^

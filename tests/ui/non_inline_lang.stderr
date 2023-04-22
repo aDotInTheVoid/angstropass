@@ -1,14 +1,14 @@
 error[E0658]: non-inline modules in proc macro input are unstable
- --> tests/ui/non_inline_module.rs:2:1
+ --> tests/ui/non_inline_lang.rs:4:5
   |
-2 | mod foo;
-  | ^^^^^^^^
+4 |     mod bar;
+  |     ^^^^^^^^
   |
   = note: see issue #54727 <https://github.com/rust-lang/rust/issues/54727> for more information
   = help: add `#![feature(proc_macro_hygiene)]` to the crate attributes to enable
 
 error: expected an inline module
- --> tests/ui/non_inline_module.rs:2:1
+ --> tests/ui/non_inline_lang.rs:4:5
   |
-2 | mod foo;
-  | ^^^^^^^^
+4 |     mod bar;
+  |     ^^^^^^^^

@@ -1,0 +1,5 @@
+error: duplicate language: foo
+ --> tests/ui/duplicate_lang_names.rs:4:9
+  |
+4 |     mod foo {}
+  |         ^^^
