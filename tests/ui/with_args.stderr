@@ -1,0 +1,5 @@
+error: this attribute does not take any arguments
+ --> tests/ui/with_args.rs:1:19
+  |
+1 | #[nanopass::langs(no no no)]
+  |                   ^^^^^^^^
