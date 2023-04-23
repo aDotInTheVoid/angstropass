@@ -1,4 +1,4 @@
-#[nanopass::langs]
+#[angstropass::langs]
 mod langs {
     #[something_else(with_attrs)]
     mod baz {}

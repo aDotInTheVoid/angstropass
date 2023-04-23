@@ -1,4 +1,4 @@
-#[nanopass::langs]
+#[angstropass::langs]
 mod langs {
     #[extends(foo)]
     #[expected(bar)]

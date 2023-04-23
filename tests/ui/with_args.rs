@@ -1,4 +1,4 @@
-#[nanopass::langs(no no no)]
+#[angstropass::langs(no no no)]
 mod foo {}
 
 fn main() {}

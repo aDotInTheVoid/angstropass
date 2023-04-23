@@ -1,4 +1,4 @@
-#[nanopass::langs]
+#[angstropass::langs]
 mod foo {
     struct Bar;
     struct Baz;

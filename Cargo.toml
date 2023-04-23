@@ -1,12 +1,12 @@
 [package]
-name = "nanopass"
+name = "angstropass"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-nanopass-macro = { version = "0.1.0", path = "nanopass-macro" }
+angstropass-macro = { version = "0.1.0", path = "angstropass-macro" }
 
 [dev-dependencies]
 trybuild = "1.0.80"

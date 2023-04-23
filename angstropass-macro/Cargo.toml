@@ -1,5 +1,5 @@
 [package]
-name = "nanopass-macro"
+name = "angstropass-macro"
 version = "0.1.0"
 edition = "2021"
 
@@ -14,4 +14,4 @@ quote = "1.0.26"
 syn = { version = "2.0.15", features = ["full"] }
 
 [workspace]
-members = ["nanopass-macro"]
+members = ["angstropass-macro"]

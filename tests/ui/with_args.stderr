@@ -1,5 +1,5 @@
 error: this attribute does not take any arguments
- --> tests/ui/with_args.rs:1:19
+ --> tests/ui/with_args.rs:1:22
   |
-1 | #[nanopass::langs(no no no)]
-  |                   ^^^^^^^^
+1 | #[angstropass::langs(no no no)]
+  |                      ^^^^^^^^

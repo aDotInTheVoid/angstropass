@@ -1,1 +1,1 @@
-pub use nanopass_macro::langs;
+pub use angstropass_macro::langs;

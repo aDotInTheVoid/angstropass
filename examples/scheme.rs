@@ -1,4 +1,4 @@
-use nanopass::langs;
+use angstropass::langs;
 
 #[langs]
 mod langs {
