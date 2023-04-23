@@ -1,7 +1,7 @@
 #[angstropass::langs]
 mod langs {
     #[extends(foo)]
-    #[expected(bar)]
+    #[extends(bar)]
     mod baz {}
 }
 

@@ -1,5 +1,5 @@
 error: only one #[extends] attribute is allowed
  --> tests/ui/several_extends.rs:4:5
   |
-4 |     #[expected(bar)]
-  |     ^^^^^^^^^^^^^^^^
+4 |     #[extends(bar)]
+  |     ^^^^^^^^^^^^^^^

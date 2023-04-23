@@ -64,7 +64,7 @@ fn get_extends(attrs: &[syn::Attribute]) -> Result<Option<syn::Ident>, syn::Erro
             let name: syn::Ident = attr.parse_args()?;
             if extends.is_some() {
                 return Err(syn::Error::new_spanned(
-                    &name,
+                    attr,
                     format!("only one #[extends] attribute is allowed"),
                 ));
             } else {
