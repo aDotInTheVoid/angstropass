@@ -1,3 +1,5 @@
+use std::collections::{btree_map, BTreeMap};
+
 use crate::input;
 
 // Don't preform any semantic validation here.
@@ -24,17 +26,76 @@ pub(crate) fn parse(input: syn::ItemMod) -> Result<input::Input, syn::Error> {
 }
 
 fn parse_lang(module: &syn::ItemMod) -> Result<input::Lang, syn::Error> {
-    let docs = docs(&module.attrs);
+    let lang_docs = docs(&module.attrs);
 
     let name = module.ident.clone();
 
     let extends = get_extends(&module.attrs)?;
 
+    let mut types = BTreeMap::new();
+
+    for item in module_content(module)? {
+        match item {
+            syn::Item::Type(type_alias) => match types.entry(type_alias.ident.clone()) {
+                btree_map::Entry::Vacant(e) => {
+                    let info = input::TypeAlias {
+                        docs: docs(&type_alias.attrs),
+                        kind: kind(&type_alias.attrs)?,
+                        ty: *type_alias.ty.clone(),
+                    };
+
+                    e.insert(info);
+                }
+                btree_map::Entry::Occupied(old) => {
+                    return Err(syn::Error::new_spanned(
+                        type_alias,
+                        format!("duplicate definition of {}", old.key()),
+                    ))
+                }
+            },
+
+            syn::Item::Struct(_) => {}
+            syn::Item::Enum(_) => {}
+
+            _ => return Err(syn::Error::new_spanned(item, format!("expected a type"))),
+        }
+    }
+
     Ok(input::Lang {
-        docs,
+        docs: lang_docs,
         name,
         extends,
+        types,
     })
+}
+
+fn kind(attrs: &[syn::Attribute]) -> Result<Option<input::DeltaKind>, syn::Error> {
+    let mut kind = None;
+
+    for attr in attrs {
+        let attrs_kind = if attr.path().is_ident("add") {
+            Some(input::DeltaKind::Add)
+        } else if attr.path().is_ident("replace") {
+            Some(input::DeltaKind::Replace)
+        } else if attr.path().is_ident("delete") {
+            Some(input::DeltaKind::Delete)
+        } else {
+            None
+        };
+
+        if let Some(attr_kind) = attrs_kind {
+            if kind.is_some() {
+                return Err(syn::Error::new_spanned(
+                    attr,
+                    "only one of #[add], #[replace], or #[delete] is allowed",
+                ));
+            }
+
+            kind = Some(attr_kind);
+        }
+    }
+
+    Ok(kind)
 }
 
 fn docs(attrs: &[syn::Attribute]) -> Vec<syn::Attribute> {

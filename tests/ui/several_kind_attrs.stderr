@@ -1,0 +1,5 @@
+error: only one of #[add], #[replace], or #[delete] is allowed
+ --> tests/ui/several_kind_attrs.rs:5:9
+  |
+5 |         #[replace]
+  |         ^^^^^^^^^^

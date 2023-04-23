@@ -1,0 +1,5 @@
+error: duplicate definition of Foo
+ --> tests/ui/duplicate_type_names.rs:5:9
+  |
+5 |         type Foo = i32;
+  |         ^^^^^^^^^^^^^^^

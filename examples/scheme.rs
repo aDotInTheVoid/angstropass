@@ -4,12 +4,10 @@ use angstropass::langs;
 mod langs {
     mod src {
         // Terminals
-        extern "" {
-            type Pr = crate::Primitive;
-            type X = crate::Symbol;
-            type C = crate::Constant;
-            type D = crate::Datum;
-        }
+        type Pr = crate::Primitive;
+        type X = crate::Symbol;
+        type C = crate::Constant;
+        type D = crate::Datum;
 
         enum Expr {
             Primitive(Pr),
@@ -25,10 +23,8 @@ mod langs {
 
     #[extends(src)]
     mod l1 {
-        extern "" {
-            #[replace]
-            type Pr = crate::PrimitiveOrVoid;
-        }
+        #[replace]
+        type Pr = crate::PrimitiveOrVoid;
 
         enum Expr {
             #[delete]
