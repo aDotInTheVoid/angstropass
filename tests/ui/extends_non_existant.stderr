@@ -1,4 +1,4 @@
-error: unknown language: nonexistant
+error: lang `bad` extends unknown lang `nonexistant`
  --> tests/ui/extends_non_existant.rs:8:15
   |
 8 |     #[extends(nonexistant)]

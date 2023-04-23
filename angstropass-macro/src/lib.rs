@@ -2,7 +2,41 @@ use proc_macro2::TokenStream;
 use quote::quote;
 
 mod input;
+mod lang;
+mod lower;
 mod parse;
+
+/**
+```text
+┌─────────────────────────┐
+│ proc_macro::TokenStream │
+└─────────────────────────┘
+  │
+  │ syn::parse
+  ▼
+┌─────────────────────────┐
+│      syn::ItemMod       │
+└─────────────────────────┘
+  │
+  │ parse::parse
+  ▼
+┌─────────────────────────┐
+│      input::Input       │
+└─────────────────────────┘
+  │
+  │ lower
+  ▼
+┌─────────────────────────┐
+│      langs::Langs       │
+└─────────────────────────┘
+  │
+  │ todo
+  ▼
+┌─────────────────────────┐
+│ proc_macro::TokenStream │
+└─────────────────────────┘
+```
+ */
 
 #[proc_macro_attribute]
 pub fn langs(
@@ -24,6 +58,12 @@ fn langs_impl(args: TokenStream, module: syn::ItemMod) -> Result<TokenStream, sy
     }
 
     let input = parse::parse(module)?;
+
+    let mut lowerer = lower::Lowerer::default();
+
+    for l in input.langs {
+        lowerer.add_lang(l)?;
+    }
 
     Ok(quote! {})
 }
