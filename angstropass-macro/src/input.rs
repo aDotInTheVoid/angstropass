@@ -9,4 +9,5 @@ pub struct Input {
 pub struct Lang {
     pub name: syn::Ident,
     pub docs: Vec<syn::Attribute>,
+    pub extends: Option<syn::Ident>,
 }
