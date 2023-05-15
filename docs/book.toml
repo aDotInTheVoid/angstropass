@@ -1,0 +1,6 @@
+[book]
+authors = ["Alona Enraght-Moony"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Angstropass Compiler Framework"
