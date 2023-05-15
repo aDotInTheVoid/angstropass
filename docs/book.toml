@@ -4,3 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Angstropass Compiler Framework"
+
+[output.html]
+git-repository-url = "https://github.com/aDotInTheVoid/angstropass"
+edit-url-template = "https://github.com/aDotInTheVoid/angstropass/edit/trunk/docs/{path}"
