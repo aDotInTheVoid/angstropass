@@ -9,4 +9,5 @@ edition = "2021"
 angstropass-macro = { version = "0.1.0", path = "angstropass-macro" }
 
 [dev-dependencies]
+rustversion = "1.0.12"
 trybuild = "1.0.80"
